@@ -1,0 +1,12 @@
+Files Processed:
+	C:\Logfile.Etl
+Total Buffers Processed 0
+Total Events  Processed 0
+Total Events  Lost      0
+Total Format  Errors    0
+Total Formats Unknown   0
+Elapsed Time            0 sec
++-----------------------------------------------------------------------------------+
+|EventCount    EventName            EventType   TMF                                 |
++-----------------------------------------------------------------------------------+
++-----------------------------------------------------------------------------------+
