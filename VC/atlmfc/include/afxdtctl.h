@@ -27,6 +27,10 @@
 #pragma pack(push, _AFX_PACKING)
 #endif
 
+#ifdef _AFX_MINREBUILD
+#pragma component(minrebuild, off)
+#endif
+
 //CObject
 	//CCmdTarget;
 		//CWnd

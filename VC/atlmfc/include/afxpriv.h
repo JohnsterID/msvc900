@@ -831,6 +831,10 @@ void AFXAPI AfxGetModuleShortFileName(HINSTANCE hInst, CString& strShortName);
 void AFXAPI AfxFailMaxChars(CDataExchange* pDX, int nChars);
 void AFXAPI AfxFailRadio(CDataExchange* pDX);
 
+// 2008 Feature Pack Support
+BOOL AFXAPI AfxIsExtendedFrameClass(CWnd* pWnd);
+BOOL AFXAPI AfxIsMFCToolBar(CWnd* pWnd);
+
 #ifndef __AFXCONV_H__
 #include <afxconv.h>
 #endif

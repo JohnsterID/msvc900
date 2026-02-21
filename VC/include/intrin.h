@@ -1046,6 +1046,7 @@ __MACHINEW64(unsigned char _bittestandcomplement64(__int64 *a, __int64 b))
 __MACHINEX64(unsigned char _interlockedbittestandset64(__int64 volatile *a, __int64 b))
 __MACHINEX64(unsigned char _interlockedbittestandreset64(__int64 volatile *a, __int64 b))
 __MACHINEI(void __cpuid(int a[4], int b))
+__MACHINEI(void __cpuidex(int a[4], int b, int c))
 __MACHINEI(unsigned __int64 __readpmc(unsigned long a))
 __MACHINEI(unsigned long __segmentlimit(unsigned long a))
 

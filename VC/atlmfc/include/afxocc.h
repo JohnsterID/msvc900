@@ -21,6 +21,10 @@
 #include "ocdbid.h"
 #include "ocdb.h"
 
+#ifdef _AFX_MINREBUILD
+#pragma component(minrebuild, off)
+#endif
+
 class CDataSourceControl;
 class CDataBoundProperty;
 
@@ -520,6 +524,10 @@ struct _AFX_OCC_DIALOG_INFO
 	};
 	ItemInfo *m_pItemInfo;
 };
+
+#ifdef _AFX_MINREBUILD
+#pragma component(minrebuild, on)
+#endif
 
 #endif // !_AFX_NO_OCC_SUPPORT
 #endif // __AFXOCC_H__

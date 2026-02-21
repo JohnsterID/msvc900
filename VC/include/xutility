@@ -394,8 +394,8 @@ class _Container_base_aux
 
 	void _Swap_aux(_Container_base_aux& _Right)
 		{
-		std::swap(_Myownedaux, _Right._Myownedaux);
-		std::swap(*_Myownedaux, *_Right._Myownedaux);
+		_STD swap(_Myownedaux, _Right._Myownedaux);
+		_STD swap(*_Myownedaux, *_Right._Myownedaux);
 		}
 
 	~_Container_base_aux()
@@ -1201,6 +1201,32 @@ template<class _Iter1, class _Iter2, class _Iter3> inline
 		typename _Move_operation_category<typename iterator_traits<_Iter>::value_type>::_Move_cat _Cat;
 		return (_Cat);
 	}
+
+template<class _Ty>
+	struct _Is_swap_move
+	{	// assumes _Ty is not _Swap_move_tag
+	static const bool _Value = false;
+	};
+
+template<>
+	struct _Is_swap_move<_Swap_move_tag>
+	{	// reports true for _Swap_move_tag
+	static const bool _Value = true;
+	};
+
+template<class _Ty1,
+	class _Ty2>
+	class _Move_operation_category<pair<_Ty1, _Ty2> >
+	{	// reports true if either member of pair is _Swap_move_tag
+public:
+	typedef typename _If<
+		_Is_swap_move<typename _Move_operation_category<
+			_Ty1>::_Move_cat>::_Value ||
+		_Is_swap_move<typename _Move_operation_category<
+			_Ty2>::_Move_cat>::_Value,
+		_Swap_move_tag,
+		_Undefined_move_tag>::_Result _Move_cat;
+	};
 
 		// TEMPLATE FUNCTION _Ptr_cat
 template<class _T1, class _T2, class _Checked_Cat1, class _Checked_Cat2>
@@ -2582,7 +2608,7 @@ inline
 	{	// use swap to instead of the copy constructor
 	_DEBUG_RANGE(_First, _Last);
 	for (; _First != _Last; ++_Dest, ++_First)
-		_STD swap(*_Dest, *_First);
+		_STD _Swap_adl(*_Dest, *_First);
 	return (_Dest);
 	}
 
@@ -2735,7 +2761,7 @@ inline
 	{	// use swap instead of the copy constructor
 	_DEBUG_RANGE(_First, _Last);
 	while (_First != _Last)
-		_STD swap(*--_Dest, *--_Last);
+		_STD _Swap_adl(*--_Dest, *--_Last);
 	return (_Dest);
 	}
 
@@ -3979,6 +4005,6 @@ _CRTIMP void __cdecl _invalid_parameter_noinfo(void);
  */
 
 /*
- * Copyright (c) 1992-2007 by P.J. Plauger.  ALL RIGHTS RESERVED.
+ * Copyright (c) 1992-2008 by P.J. Plauger.  ALL RIGHTS RESERVED.
  * Consult your license regarding permissions and restrictions.
- V5.03:0009 */
+ V5.05:0009 */

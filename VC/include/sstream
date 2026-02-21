@@ -106,16 +106,16 @@ protected:
 			size_t _Newsize = _Oldsize;
 			size_t _Inc = _Newsize / 2 < _MINSIZE
 				? _MINSIZE : _Newsize / 2;	// grow by 50 per cent
-			_Elem *_Newptr = 0;
-			_Elem *_Oldptr = _Mysb::eback();
 
 			while (0 < _Inc && INT_MAX - _Inc < _Newsize)
 				_Inc /= 2;	// increment causes overflow, halve it
-			if (0 < _Inc)
-				{	// finite increment, allocate new character array
-				_Newsize += _Inc;
-				_Newptr = _Al.allocate(_Newsize);
-				}
+			if (_Inc == 0)
+				return (_Traits::eof());	// buffer can't grow, fail
+
+			_Newsize += _Inc;
+
+			_Elem *_Newptr = _Al.allocate(_Newsize);
+			_Elem *_Oldptr = _Mysb::eback();
 
 			if (0 < _Oldsize)
 				_Traits_helper::copy_s<_Traits>(_Newptr, _Newsize, _Oldptr, _Oldsize);
@@ -536,6 +536,6 @@ _STD_END
 #endif /* _SSTREAM_ */
 
 /*
- * Copyright (c) 1992-2006 by P.J. Plauger.  ALL RIGHTS RESERVED.
+ * Copyright (c) 1992-2008 by P.J. Plauger.  ALL RIGHTS RESERVED.
  * Consult your license regarding permissions and restrictions.
- V5.02:0009 */
+ V5.05:0009 */

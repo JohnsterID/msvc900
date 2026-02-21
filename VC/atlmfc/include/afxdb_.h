@@ -17,6 +17,10 @@
 
 #include <sqltypes.h>
 
+#ifdef _AFX_MINREBUILD
+#pragma component(minrebuild, off)
+#endif
+
 //////////////////////////////////////////////////////////////////////////////
 // Recordset Field exchange for ODBC & DAO classes (RFX_ and DFX_)
 
@@ -80,5 +84,9 @@ public:
 };
 
 //////////////////////////////////////////////////////////////////////////////
+
+#ifdef _AFX_MINREBUILD
+#pragma component(minrebuild, on)
+#endif
 
 #endif // __AFXDB__H__

@@ -1029,14 +1029,9 @@ public:
 
 	void _Reverse(size_type _First, size_type _Last)
 		{	// reverse a subrange
+		iterator _Start = begin();
 		for (; _First != _Last && _First != --_Last; ++_First)
-			{	// swap distinct _First and _Last
-			iterator _Start = begin();
-			value_type _Temp = _Start[_First];
-
-			_Start[_First] = _Start[_Last];
-			_Start[_Last] = _Temp;
-			}
+			_STD _Swap_adl(_Start[_First], _Start[_Last]);
 		}
 
 	iterator erase(const_iterator _Where)
@@ -1104,10 +1099,10 @@ public:
 
 			this->_Swap_aux(_Right);
 
-			std::swap(_Map, _Right._Map);
-			std::swap(_Mapsize, _Right._Mapsize);
-			std::swap(_Myoff, _Right._Myoff);
-			std::swap(_Mysize, _Right._Mysize);
+			_STD _Swap_adl(_Map, _Right._Map);
+			_STD swap(_Mapsize, _Right._Mapsize);
+			_STD swap(_Myoff, _Right._Myoff);
+			_STD swap(_Mysize, _Right._Mysize);
 			}
 		else
 			{	// different allocator, do multiple assigns

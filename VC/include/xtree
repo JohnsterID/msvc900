@@ -839,7 +839,7 @@ public:
 				_Right(_Parent(_Erasednode)) = _Pnode;	// link down to right
 
 			_Parent(_Pnode) = _Parent(_Erasednode);	// link successor up
-			std::swap(_Color(_Pnode), _Color(_Erasednode));	// recolor it
+			_STD swap(_Color(_Pnode), _Color(_Erasednode));	// recolor it
 			}
 
 		if (_Color(_Erasednode) == _Black)
@@ -1042,9 +1042,9 @@ public:
 
 			this->_Swap_aux(_Right);
 
-			std::swap(this->comp, _Right.comp);
-			std::swap(_Myhead, _Right._Myhead);
-			std::swap(_Mysize, _Right._Mysize);
+			_STD _Swap_adl(this->comp, _Right.comp);
+			_STD swap(_Myhead, _Right._Myhead);
+			_STD swap(_Mysize, _Right._Mysize);
 			}
 		else
 			{	// different allocator, do multiple assigns

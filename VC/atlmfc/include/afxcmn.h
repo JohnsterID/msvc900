@@ -956,7 +956,7 @@ public:
 	BOOL SelectItem(_In_opt_ HTREEITEM hItem);
 
 	// Selects an item to be the drop target in the control.
-	BOOL SelectDropTarget(_In_ HTREEITEM hItem);
+	BOOL SelectDropTarget(_In_opt_ HTREEITEM hItem);
 
 	// Draws the specified item as the drop target for the control.
 	BOOL SelectSetFirstVisible(_In_ HTREEITEM hItem);
@@ -966,14 +966,14 @@ public:
 
 	// Determines the visual feature of the control under
 	// the specified point.
-	HTREEITEM HitTest(_In_ CPoint pt, _In_ UINT* pFlags = NULL) const;
+	HTREEITEM HitTest(_In_ CPoint pt, _In_opt_ UINT* pFlags = NULL) const;
 	HTREEITEM HitTest(_In_ TVHITTESTINFO* pHitTestInfo) const;
 
 	// Create a drag image for the specified item.
 	CImageList* CreateDragImage(_In_ HTREEITEM hItem);
 
 	// Sorts all children of the specified item.
-	BOOL SortChildren(_In_ HTREEITEM hItem);
+	BOOL SortChildren(_In_opt_ HTREEITEM hItem);
 
 	// Scrolls the control to ensure the specified item is visible.
 	BOOL EnsureVisible(_In_ HTREEITEM hItem);
@@ -1056,7 +1056,7 @@ public:
 
 #if _WIN32_IE >= 0x0500
 	// Retrieves the current position of the up-down control with 32-bit precision.
-	int GetPos32(_Out_ LPBOOL lpbError = NULL) const;
+	int GetPos32(_Out_opt_ LPBOOL lpbError = NULL) const;
 
 	// Sets the current position of an up-down control with 32-bit precision.
 	int SetPos32(_In_ int nPos);

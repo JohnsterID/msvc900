@@ -301,14 +301,14 @@ public:
 	typedef pointer _Checked_iterator_base_type;
 
 	_Checked_iterator_base_type _Checked_iterator_base() const
-	{
-		return this->_Myptr;
-	}
+		{
+		return (this->_Myptr);
+		}
 
 	void _Checked_iterator_assign_from_base(_Checked_iterator_base_type _Base)
-	{
+		{
 		this->_Myptr = _Base;
-	}
+		}
 #endif
 
 	_Vector_iterator()
@@ -996,12 +996,7 @@ public:
  	void _Reverse(pointer _First, pointer _Last)
 		{	// reverse a subrange
 		for (; _First != _Last && _First != --_Last; ++_First)
-			{	// swap distinct _First and _Last
-			value_type _Temp = *_First;
-
-			*_First = *_Last;
-			*_Last = _Temp;
-			}
+			_STD _Swap_adl(*_First, *_Last);
 		}
 
  #if _HAS_ITERATOR_DEBUGGING
@@ -1078,9 +1073,9 @@ public:
 
 			this->_Swap_aux(_Right);
 
-			std::swap(_Myfirst, _Right._Myfirst);
-			std::swap(_Mylast, _Right._Mylast);
-			std::swap(_Myend, _Right._Myend);
+			_STD swap(_Myfirst, _Right._Myfirst);
+			_STD swap(_Mylast, _Right._Mylast);
+			_STD swap(_Myend, _Right._Myend);
 			}
 		else
 			{	// different allocator, do multiple assigns
@@ -1176,15 +1171,22 @@ protected:
 			if (_Capacity < size() + _Count)
 				_Capacity = size() + _Count;
 			pointer _Newvec = this->_Alval.allocate(_Capacity);
-			pointer _Ptr = _Newvec;
+			size_type _Whereoff = _VEC_ITER_BASE(_Where) - _Myfirst;
+			int _Ncopied = 0;
 
 			_TRY_BEGIN
-			_Ptr = _Umove(_Myfirst, _VEC_ITER_BASE(_Where),
-				_Newvec);	// copy prefix
-			_Ptr = _Ufill(_Ptr, _Count, _Val);	// add new stuff
-			_Umove(_VEC_ITER_BASE(_Where), _Mylast, _Ptr);	// copy suffix
+			_Ufill(_Newvec + _Whereoff, _Count, _Val);	// add new stuff
+			++_Ncopied;
+			_Umove(this->_Myfirst, _VEC_ITER_BASE(_Where),
+				_Newvec);	// move prefix
+			++_Ncopied;
+			_Umove(_VEC_ITER_BASE(_Where), this->_Mylast,
+				_Newvec + (_Whereoff + _Count));	// move suffix
 			_CATCH_ALL
-			_Destroy(_Newvec, _Ptr);
+			if (1 < _Ncopied)
+				_Destroy(_Newvec, _Newvec + _Whereoff);
+			if (0 < _Ncopied)
+				_Destroy(_Newvec + _Whereoff, _Newvec + _Whereoff + _Count);
 			this->_Alval.deallocate(_Newvec, _Capacity);
 			_RERAISE;
 			_CATCH_END
@@ -1423,14 +1425,15 @@ public:
  #if _HAS_ITERATOR_DEBUGGING || _SECURE_SCL
 	_Vbase * _My_cont_begin() const
 		{
-			return _VEC_ITER_BASE(((_MycontTy *)this->_Getmycont())->_Myvec.begin());
+		return (_VEC_ITER_BASE(((_MycontTy *)this->
+			_Getmycont())->_Myvec.begin()));
 		}
 
 	_Sizet _My_actual_offset() const
 		{
 		_Sizet _Off = this->_Myoff;
 		_Off += _VBITS * (this->_Myptr - _My_cont_begin());
-		return _Off;
+		return (_Off);
 		}
  #endif
 	};
@@ -2061,7 +2064,7 @@ public:
 		{	// return allocator object for values
 		// Work around a BE problem.
 		_Alloc _Alret = _Myvec.get_allocator();
-		return _Alret;
+		return (_Alret);
 		}
 
 	const_reference at(size_type _Off) const
@@ -2259,8 +2262,7 @@ public:
  #endif /* _HAS_ITERATOR_DEBUGGING */
 
 			this->_Swap_aux(_Right);
-
-			std::swap(_Mysize, _Right._Mysize);
+			_STD swap(_Mysize, _Right._Mysize);
 			_Myvec.swap(_Right._Myvec);
 			}
 		}
@@ -2418,6 +2420,6 @@ _STD_END
  */
 
 /*
- * Copyright (c) 1992-2007 by P.J. Plauger.  ALL RIGHTS RESERVED.
+ * Copyright (c) 1992-2008 by P.J. Plauger.  ALL RIGHTS RESERVED.
  * Consult your license regarding permissions and restrictions.
- V5.03:0009 */
+ V5.05:0009 */

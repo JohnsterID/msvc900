@@ -152,6 +152,16 @@
 
 #include <mfcassem.h>
 
+#if defined( _AFXDLL )
+	#if _BIND_TO_CURRENT_MFC_VERSION
+		#if defined(_M_IX86)
+			#pragma comment(linker, "/include:__forceMFCManifestCUR")
+		#else
+			#pragma comment(linker, "/include:_forceMFCManifestCUR")
+		#endif
+	#endif
+#endif
+
 #endif	// !_AFX_NOFORCE_MANIFEST && !_VC_NODEFAULTLIB && _AFXDLL
 
 #ifdef _MANAGED

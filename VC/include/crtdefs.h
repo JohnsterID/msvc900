@@ -91,6 +91,18 @@
 
 #include <crtassem.h>
 
+#if _BIND_TO_CURRENT_CRT_VERSION
+  #if !defined(_M_CEE_PURE)
+    #if defined(_M_IX86)
+        #pragma comment(linker, "/include:__forceCRTManifestCUR")
+    #else
+        #pragma comment(linker, "/include:_forceCRTManifestCUR")
+    #endif
+  #else
+        #pragma comment(linker, "/include:?_forceCRTManifestCUR@@$$Q3HA")
+  #endif
+#endif
+
 #ifdef _M_IX86
 
 #ifdef _DEBUG
@@ -988,7 +1000,7 @@ typedef __time64_t time_t;      /* time value */
     __inline \
     _ReturnType __CRTDECL __insecure_##_FuncName(_SalAttributeDst _DstType *_Dst, _TType1 _TArg1) \
     { \
-        _DeclSpec _ReturnType __cdecl _FuncName(_DstType *_Dst, _TType1 _TArg1); \
+        _DeclSpec _ReturnType __cdecl _FuncName(_SalAttributeDst _DstType *_Dst, _TType1 _TArg1); \
         return _FuncName(_Dst, _TArg1); \
     } \
     extern "C++" \

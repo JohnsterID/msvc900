@@ -958,7 +958,7 @@ public:
 	typedef complex<_Ty> _Myt;
 	typedef _Complex_base<_Ty, _Complex_value<_Ty> > _Mybase;
 
-	complex(const _Ty& _Realval = 0, const _Ty& _Imagval = 0)
+	complex(const _Ty& _Realval = _Ty(), const _Ty& _Imagval = _Ty())
 		: _Mybase(_Realval, _Imagval)
 		{	// construct from components of same type
 		}
@@ -966,7 +966,7 @@ public:
 	_Myt& operator=(const _Ty& _Right)
 		{	// assign real
 		this->_Val[_RE] = _Right;
-		this->_Val[_IM] = 0;
+		this->_Val[_IM] = _Ty();
 		return (*this);
 		}
 

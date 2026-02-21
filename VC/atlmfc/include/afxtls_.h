@@ -17,6 +17,10 @@
 #pragma pack(push, _AFX_PACKING)
 #endif
 
+#ifdef _AFX_MINREBUILD
+#pragma component(minrebuild, off)
+#endif
+
 #undef AFX_DATA
 #define AFX_DATA AFX_CORE_DATA
 
@@ -238,6 +242,10 @@ void AFXAPI AfxInitLocalData(HINSTANCE hInstInit);
 void AFXAPI AfxTermLocalData(HINSTANCE hInstTerm, BOOL bAll = FALSE);
 void AFXAPI AfxTlsAddRef();
 void AFXAPI AfxTlsRelease();
+
+#ifdef _AFX_MINREBUILD
+#pragma component(minrebuild, on)
+#endif
 
 #ifdef _AFX_PACKING
 #pragma pack(pop)

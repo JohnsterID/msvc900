@@ -25,6 +25,10 @@
 #pragma comment(lib, "wininet.lib")
 #endif
 
+#ifdef _AFX_MINREBUILD
+#pragma component(minrebuild, off)
+#endif
+
 /////////////////////////////////////////////////////////////////////////////
 // classes that are declared in this file
 

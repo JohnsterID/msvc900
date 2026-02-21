@@ -16,6 +16,10 @@
 
 #pragma once
 
+#ifdef _AFX_MINREBUILD
+#pragma component(minrebuild, off)
+#endif
+
 #ifndef _AFX
 #error afxstr.h can only be used in MFC projects.  Use atlstr.h
 #endif
@@ -102,5 +106,8 @@ typedef ATL::CStringT< TCHAR, StrTraitMFC< TCHAR > > CString;
 
 #endif	// !_WIN64 && _AFXDLL
 
+#ifdef _AFX_MINREBUILD
+#pragma component(minrebuild, on)
+#endif
 
 #endif	// __AFXSTR_H__ (whole file)

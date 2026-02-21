@@ -309,12 +309,13 @@ template<class _FwdIt1,
 		return (_First1);
 
 	_FwdIt1 _Oldfirst1 = _First1;
-	for (; _Count <= _Last1 - _Oldfirst1; )
-		{	// enough room, look for a match 
+	for (_Diff2 _Inc = 0; _Count <= _Last1 - _Oldfirst1; )
+		{	// enough room, look for a match
+		_First1 = _Oldfirst1 + _Inc;
 		if (*_First1 == _Val)
 			{	// found part of possible match, check it out
 			_Diff2 _Count1 = _Count;
-			_FwdIt1 _Mid1  = _First1;
+			_FwdIt1 _Mid1 = _First1;
 
 			for (; _Oldfirst1 != _First1 && _First1[-1] == _Val; --_First1)
 				--_Count1;	// back up over any skipped prefix
@@ -327,12 +328,12 @@ template<class _FwdIt1,
 						break;	// short match not at end
 
 			_Oldfirst1 = ++_Mid1;	// failed match, take small jump
-			_First1 = _Oldfirst1;
+			_Inc = 0;
 			}
 		else
 			{	// no match, take big jump and back up as needed
 			_Oldfirst1 = _First1 + 1;
-			_First1 += _Count;
+			_Inc = _Count - 1;
 			}
 		}
 	return (_Last1);
@@ -403,7 +404,8 @@ template<class _FwdIt1,
 			_Diff2 _Count1 = _Count;
 			_FwdIt1 _Mid1  = _First1;
 
-			for (; _Oldfirst1 != _First1 && _First1[-1] == _Val; --_First1)
+			for (; _Oldfirst1 != _First1 && _Pred(_First1[-1], _Val);
+				--_First1)
 				--_Count1;	// back up over any skipped prefix
 
 			if (_Count1 <= _Last1 - _Mid1)
@@ -589,7 +591,7 @@ template<class _FwdIt1,
 	class _FwdIt2> inline
 	void iter_swap(_FwdIt1 _Left, _FwdIt2 _Right)
 	{	// swap *_Left and *_Right
-	std::swap(*_Left, *_Right);
+	swap(*_Left, *_Right);
 	}
 
 		// TEMPLATE FUNCTION swap_ranges
@@ -5790,6 +5792,6 @@ _STDEXT_END
  */
 
 /*
- * Copyright (c) 1992-2007 by P.J. Plauger.  ALL RIGHTS RESERVED.
+ * Copyright (c) 1992-2008 by P.J. Plauger.  ALL RIGHTS RESERVED.
  * Consult your license regarding permissions and restrictions.
- V5.03:0009 */
+ V5.05:0009 */

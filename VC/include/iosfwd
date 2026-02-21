@@ -183,8 +183,8 @@ template<class _Elem>
 		return (_Left < _Right);
 		}
 
-	static int __CLRCALL_OR_CDECL compare(const _Elem *_First1,
-		const _Elem *_First2, size_t _Count)
+	static int __CLRCALL_OR_CDECL compare(_In_count_(_Count) const _Elem *_First1,
+		_In_count_(_Count) const _Elem *_First2, size_t _Count)
 		{	// compare [_First1, _First1 + _Count) with [_First2, ...)
 //		_DEBUG_POINTER(_First1);
 //		_DEBUG_POINTER(_First2);
@@ -194,7 +194,7 @@ template<class _Elem>
 		return (0);
 		}
 
-	static size_t __CLRCALL_OR_CDECL length(const _Elem *_First)
+	static size_t __CLRCALL_OR_CDECL length(_In_z_ const _Elem *_First)
 		{	// find length of null-terminated sequence
 //		_DEBUG_POINTER(_First);
 		size_t _Count;
@@ -204,15 +204,15 @@ template<class _Elem>
 		}
 
 	_SCL_INSECURE_DEPRECATE
-	static _Elem *__CLRCALL_OR_CDECL copy(_Elem *_First1,
-		const _Elem *_First2, size_t _Count)
+	static _Elem *__CLRCALL_OR_CDECL copy(_Out_cap_(_Count) _Elem *_First1,
+		_In_count_(_Count) const _Elem *_First2, size_t _Count)
 		{	// copy [_First1, _First1 + _Count) to [_First2, ...)
 		// assume there is enough space in the destination buffer
 		return _Copy_s(_First1, _Count, _First2, _Count);
 		}
 
-	static _Elem *__CLRCALL_OR_CDECL _Copy_s(_Elem *_First1, size_t _Dest_size,
-		const _Elem *_First2, size_t _Count)
+	static _Elem *__CLRCALL_OR_CDECL _Copy_s(_Out_cap_(_Dest_size) _Elem *_First1, size_t _Dest_size,
+		_In_count_(_Count) const _Elem *_First2, size_t _Count)
 		{	// copy [_First1, _First1 + _Count) to [_First2, ...)
 //		_DEBUG_POINTER(_First1);
 //		_DEBUG_POINTER(_First2);
@@ -223,7 +223,7 @@ template<class _Elem>
 		return (_First1);
 		}
 
-	static const _Elem *__CLRCALL_OR_CDECL find(const _Elem *_First,
+	static const _Elem *__CLRCALL_OR_CDECL find(_In_count_(_Count) const _Elem *_First,
 		size_t _Count, const _Elem& _Ch)
 		{	// look for _Ch in [_First, _First + _Count)
 //		_DEBUG_POINTER(_First);
@@ -234,15 +234,15 @@ template<class _Elem>
 		}
 
 	_SCL_INSECURE_DEPRECATE
-	static _Elem *__CLRCALL_OR_CDECL move(_Elem *_First1,
-		const _Elem *_First2, size_t _Count)
+	static _Elem *__CLRCALL_OR_CDECL move(_Out_cap_(_Count) _Elem *_First1,
+		_In_count_(_Count) const _Elem *_First2, size_t _Count)
 		{	// move [_First1, _First1 + _Count) to [_First2, ...)
 		// assume there is enough space in the destination buffer
 		return _Move_s(_First1, _Count, _First2, _Count);
 		}
 
-	static _Elem *__CLRCALL_OR_CDECL _Move_s(_Elem *_First1, size_t _Dest_size,
-		const _Elem *_First2, size_t _Count)
+	static _Elem *__CLRCALL_OR_CDECL _Move_s(_Out_cap_(_Dest_size) _Elem *_First1, size_t _Dest_size,
+		_In_count_(_Count) const _Elem *_First2, size_t _Count)
 		{	// move [_First1, _First1 + _Count) to [_First2, ...)
 //		_DEBUG_POINTER(_First1);
 //		_DEBUG_POINTER(_First2);
@@ -257,7 +257,7 @@ template<class _Elem>
 		return (_First1);
 		}
 
-	static _Elem *__CLRCALL_OR_CDECL assign(_Elem *_First,
+	static _Elem *__CLRCALL_OR_CDECL assign(_Out_cap_(_Count) _Elem *_First,
 		size_t _Count, _Elem _Ch)
 		{	// assign _Count * _Ch to [_First, ...)
 //		_DEBUG_POINTER(_First);
@@ -320,7 +320,7 @@ template<> struct _CRTIMP2_PURE char_traits<wchar_t>:
 		return (_Left < _Right);
 		}
 
-	static int __CLRCALL_OR_CDECL compare(const _Elem *_First1, const _Elem *_First2,
+	static int __CLRCALL_OR_CDECL compare(_In_count_(_Count) const _Elem *_First1, _In_count_(_Count) const _Elem *_First2,
 		size_t _Count)
 		{	// compare [_First1, _First1 + _Count) with [_First2, ...)
 //		_DEBUG_POINTER(_First1);
@@ -328,21 +328,21 @@ template<> struct _CRTIMP2_PURE char_traits<wchar_t>:
 		return (::wmemcmp(_First1, _First2, _Count));
 		}
 
-	static size_t __CLRCALL_OR_CDECL length(const _Elem *_First)
+	static size_t __CLRCALL_OR_CDECL length(_In_z_ const _Elem *_First)
 		{	// find length of null-terminated sequence
 //		_DEBUG_POINTER(_First);
 		return (::wcslen(_First));
 		}
 
 	_SCL_INSECURE_DEPRECATE
-	static _Elem *__CLRCALL_OR_CDECL copy(_Elem *_First1, const _Elem *_First2,
+	static _Elem *__CLRCALL_OR_CDECL copy(_Out_cap_(_Count) _Elem *_First1, _In_count_(_Count) const _Elem *_First2,
 		size_t _Count)
 		{	// copy [_First1, _First1 + _Count) to [_First2, ...)
 		// assume there is enough space in the destination buffer
 		return _Copy_s(_First1, _Count, _First2, _Count);
 		}
 
-	static _Elem *__CLRCALL_OR_CDECL _Copy_s(_Elem *_First1, size_t _Size_in_words, const _Elem *_First2,
+	static _Elem *__CLRCALL_OR_CDECL _Copy_s(_Out_cap_(_Size_in_words) _Elem *_First1, size_t _Size_in_words, _In_count_(_Count) const _Elem *_First2,
 		size_t _Count)
 		{	// copy [_First1, _First1 + _Count) to [_First2, ...)
 //		_DEBUG_POINTER(_First1);
@@ -351,7 +351,7 @@ template<> struct _CRTIMP2_PURE char_traits<wchar_t>:
 		return _First1;
 		}
 
-	static const _Elem *__CLRCALL_OR_CDECL find(const _Elem *_First, size_t _Count,
+	static const _Elem *__CLRCALL_OR_CDECL find(_In_count_(_Count) const _Elem *_First, size_t _Count,
 		const _Elem& _Ch)
 		{	// look for _Ch in [_First, _First + _Count)
 //		_DEBUG_POINTER(_First);
@@ -359,14 +359,14 @@ template<> struct _CRTIMP2_PURE char_traits<wchar_t>:
 		}
 
 	_SCL_INSECURE_DEPRECATE
-	static _Elem *__CLRCALL_OR_CDECL move(_Elem *_First1, const _Elem *_First2,
+	static _Elem *__CLRCALL_OR_CDECL move(_Out_cap_(_Count) _Elem *_First1, _In_count_(_Count) const _Elem *_First2,
 		size_t _Count)
 		{	// move [_First1, _First1 + _Count) to [_First2, ...)
 		// assume there is enough space in the destination buffer
 		return _Move_s(_First1, _Count, _First2, _Count);
 		}
 
-	static _Elem *__CLRCALL_OR_CDECL _Move_s(_Elem *_First1, size_t _Size_in_words, const _Elem *_First2,
+	static _Elem *__CLRCALL_OR_CDECL _Move_s(_Out_cap_(_Size_in_words) _Elem *_First1, size_t _Size_in_words, _In_count_(_Count) const _Elem *_First2,
 		size_t _Count)
 		{	// move [_First1, _First1 + _Count) to [_First2, ...)
 //		_DEBUG_POINTER(_First1);
@@ -375,7 +375,7 @@ template<> struct _CRTIMP2_PURE char_traits<wchar_t>:
 		return (_Elem *)_First1;
 		}
 
-	static _Elem *__CLRCALL_OR_CDECL assign(_Elem *_First, size_t _Count, _Elem _Ch)
+	static _Elem *__CLRCALL_OR_CDECL assign(_Out_cap_(_Count) _Elem *_First, size_t _Count, _Elem _Ch)
 		{	// assign _Count * _Ch to [_First, ...)
 //		_DEBUG_POINTER(_First);
 		return ((_Elem *)::wmemset(_First, _Ch, _Count));
@@ -435,7 +435,7 @@ template<> struct _CRTIMP2_PURE char_traits<char>:
 		return (_Left < _Right);
 		}
 
-	static int __CLRCALL_OR_CDECL compare(const _Elem *_First1, const _Elem *_First2,
+	static int __CLRCALL_OR_CDECL compare(_In_count_(_Count) const _Elem *_First1, _In_count_(_Count) const _Elem *_First2,
 		size_t _Count)
 		{	// compare [_First1, _First1 + _Count) with [_First2, ...)
 //		_DEBUG_POINTER(_First1);
@@ -443,21 +443,21 @@ template<> struct _CRTIMP2_PURE char_traits<char>:
 		return (::memcmp(_First1, _First2, _Count));
 		}
 
-	static size_t __CLRCALL_OR_CDECL length(const _Elem *_First)
+	static size_t __CLRCALL_OR_CDECL length(_In_z_ const _Elem *_First)
 		{	// find length of null-terminated string
 //		_DEBUG_POINTER(_First);
 		return (::strlen(_First));
 		}
 
 	_SCL_INSECURE_DEPRECATE
-	static _Elem *__CLRCALL_OR_CDECL copy(_Elem *_First1, const _Elem *_First2,
+	static _Elem *__CLRCALL_OR_CDECL copy(_Out_cap_(_Count) _Elem *_First1, _In_count_(_Count) const _Elem *_First2,
 		size_t _Count)
 		{	// copy [_First1, _First1 + _Count) to [_First2, ...)
 		// assume there is enough space in the destination buffer
 		return _Copy_s(_First1, _Count, _First2, _Count);
 		}
 
-	static _Elem *__CLRCALL_OR_CDECL _Copy_s(_Elem *_First1, size_t _Size_in_bytes, const _Elem *_First2,
+	static _Elem *__CLRCALL_OR_CDECL _Copy_s(_Out_cap_(_Size_in_bytes) _Elem *_First1, size_t _Size_in_bytes, _In_count_(_Count) const _Elem *_First2,
 		size_t _Count)
 		{	// copy [_First1, _First1 + _Count) to [_First2, ...)
 //		_DEBUG_POINTER(_First1);
@@ -466,7 +466,7 @@ template<> struct _CRTIMP2_PURE char_traits<char>:
 		return _First1;
 		}
 
-	static const _Elem *__CLRCALL_OR_CDECL find(const _Elem *_First, size_t _Count,
+	static const _Elem *__CLRCALL_OR_CDECL find(_In_count_(_Count) const _Elem *_First, size_t _Count,
 		const _Elem& _Ch)
 		{	// look for _Ch in [_First, _First + _Count)
 //		_DEBUG_POINTER(_First);
@@ -474,14 +474,14 @@ template<> struct _CRTIMP2_PURE char_traits<char>:
 		}
 
 	_SCL_INSECURE_DEPRECATE
-	static _Elem *__CLRCALL_OR_CDECL move(_Elem *_First1, const _Elem *_First2,
+	static _Elem *__CLRCALL_OR_CDECL move(_Out_cap_(_Count) _Elem *_First1, _In_count_(_Count) const _Elem *_First2,
 		size_t _Count)
 		{	// move [_First1, _First1 + _Count) to [_First2, ...)
 		// assume there is enough space in the destination buffer
 		return _Move_s(_First1, _Count, _First2, _Count);
 		}
 
-	static _Elem *__CLRCALL_OR_CDECL _Move_s(_Elem *_First1, size_t _Size_in_bytes, const _Elem *_First2,
+	static _Elem *__CLRCALL_OR_CDECL _Move_s(_Out_cap_(_Size_in_bytes) _Elem *_First1, size_t _Size_in_bytes, _In_count_(_Count) const _Elem *_First2,
 		size_t _Count)
 		{	// move [_First1, _First1 + _Count) to [_First2, ...)
 //		_DEBUG_POINTER(_First1);
@@ -490,7 +490,7 @@ template<> struct _CRTIMP2_PURE char_traits<char>:
 		return _First1;
 		}
 
-	static _Elem *__CLRCALL_OR_CDECL assign(_Elem *_First, size_t _Count, _Elem _Ch)
+	static _Elem *__CLRCALL_OR_CDECL assign(_Out_cap_(_Count) _Elem *_First, size_t _Count, _Elem _Ch)
 		{	// assign _Count * _Ch to [_First, ...)
 //		_DEBUG_POINTER(_First);
 		return ((_Elem *)::memset(_First, _Ch, _Count));
@@ -583,16 +583,16 @@ template<> struct _CRTIMP2_PURE char_traits<char>:
 		// TEMPLATE FUNCTION _Traits_helper::copy_s
 	template<class _Traits>
 	inline
-	typename _Traits::char_type *copy_s(typename _Traits::char_type *_First1, size_t _Size,
-		const typename _Traits::char_type *_First2, size_t _Count)
+	typename _Traits::char_type *copy_s(_Out_cap_(_Size) typename _Traits::char_type *_First1, size_t _Size,
+		_In_count_(_Count) const typename _Traits::char_type *_First2, size_t _Count)
 	{
 		return copy_s<_Traits>(_First1, _Size, _First2, _Count, _Char_traits_cat<_Traits>());
 	}
 
 	template<class _Traits>
 	inline
-	typename _Traits::char_type *copy_s(typename _Traits::char_type *_First1, size_t _Size,
-		const typename _Traits::char_type *_First2, size_t _Count, _Secure_char_traits_tag)
+	typename _Traits::char_type *copy_s(_Out_cap_(_Size) typename _Traits::char_type *_First1, size_t _Size,
+		_In_count_(_Count) const typename _Traits::char_type *_First2, size_t _Count, _Secure_char_traits_tag)
 	{
 		return _Traits::_Copy_s(_First1, _Size, _First2, _Count);
 	}
@@ -601,8 +601,8 @@ template<> struct _CRTIMP2_PURE char_traits<char>:
 	template<class _Traits>
 	inline
 	_SCL_INSECURE_DEPRECATE
-	typename _Traits::char_type *copy_s(typename _Traits::char_type *_First1, size_t _Size,
-		const typename _Traits::char_type *_First2, size_t _Count, _Unsecure_char_traits_tag)
+	typename _Traits::char_type *copy_s(_Out_cap_(_Size) typename _Traits::char_type *_First1, size_t _Size,
+		_In_count_(_Count) const typename _Traits::char_type *_First2, size_t _Count, _Unsecure_char_traits_tag)
 	{
 		return _Traits::copy(_First1, _First2, _Count);
 	}
@@ -610,16 +610,16 @@ template<> struct _CRTIMP2_PURE char_traits<char>:
 		// TEMPLATE FUNCTION _Traits_helper::move_s
 	template<class _Traits>
 	inline
-	typename _Traits::char_type *move_s(typename _Traits::char_type *_First1, size_t _Size,
-		const typename _Traits::char_type *_First2, size_t _Count)
+	typename _Traits::char_type *move_s(_Out_cap_(_Size) typename _Traits::char_type *_First1, size_t _Size,
+		_In_count_(_Count) const typename _Traits::char_type *_First2, size_t _Count)
 	{
 		return move_s<_Traits>(_First1, _Size, _First2, _Count, _Char_traits_cat<_Traits>());
 	}
 
 	template<class _Traits>
 	inline
-	typename _Traits::char_type *move_s(typename _Traits::char_type *_First1, size_t _Size,
-		const typename _Traits::char_type *_First2, size_t _Count, _Secure_char_traits_tag)
+	typename _Traits::char_type *move_s(_Out_cap_(_Size) typename _Traits::char_type *_First1, size_t _Size,
+		_In_count_(_Count) const typename _Traits::char_type *_First2, size_t _Count, _Secure_char_traits_tag)
 	{
 		return _Traits::_Move_s(_First1, _Size, _First2, _Count);
 	}
@@ -628,8 +628,8 @@ template<> struct _CRTIMP2_PURE char_traits<char>:
 	template<class _Traits>
 	inline
 	_SCL_INSECURE_DEPRECATE
-	typename _Traits::char_type *move_s(typename _Traits::char_type *_First1, size_t _Size,
-		const typename _Traits::char_type *_First2, size_t _Count, _Unsecure_char_traits_tag)
+	typename _Traits::char_type *move_s(_Out_cap_(_Size) typename _Traits::char_type *_First1, size_t _Size,
+		_In_count_(_Count) const typename _Traits::char_type *_First2, size_t _Count, _Unsecure_char_traits_tag)
 	{
 		return _Traits::move(_First1, _First2, _Count);
 	}
@@ -766,6 +766,6 @@ _STD_END
 #endif /* _IOSFWD_ */
 
 /*
- * Copyright (c) 1992-2007 by P.J. Plauger.  ALL RIGHTS RESERVED.
+ * Copyright (c) 1992-2008 by P.J. Plauger.  ALL RIGHTS RESERVED.
  * Consult your license regarding permissions and restrictions.
- V5.03:0009 */
+ V5.05:0009 */

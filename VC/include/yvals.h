@@ -9,7 +9,11 @@
 #pragma pack(push,_CRT_PACKING)
 #endif  /* _MSC_VER */
 
-#define _CPPLIB_VER	503
+#define _CPPLIB_VER	505
+
+ #if !defined(_HAS_TR1)
+  #define _HAS_TR1	1	/* enable TR1 extensions */
+ #endif /* !defined(_HAS_TR1) */
 
 /* Note on use of "deprecate":
  * Various places in this header and other headers use __declspec(deprecate) or macros that have the term DEPRECATE in them.
@@ -830,6 +834,6 @@ _C_STD_END
 
 
 /*
- * Copyright (c) 1992-2007 by P.J. Plauger.  ALL RIGHTS RESERVED.
+ * Copyright (c) 1992-2008 by P.J. Plauger.  ALL RIGHTS RESERVED.
  * Consult your license regarding permissions and restrictions.
- V5.03:0009 */
+ V5.05:0009 */

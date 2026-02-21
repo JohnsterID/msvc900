@@ -22,6 +22,10 @@
 #pragma pack(push, _AFX_PACKING)
 #endif
 
+#ifdef _AFX_MINREBUILD
+#pragma component(minrebuild, off)
+#endif
+
 #ifndef __AFXTLS_H__
 	#include <afxtls_.h>
 #endif
@@ -425,6 +429,10 @@ void AFXAPI AfxSetPerUserRegistration(BOOL bEnable);
 BOOL AFXAPI AfxGetPerUserRegistration(void);
 
 /////////////////////////////////////////////////////////////////////////////
+
+#ifdef _AFX_MINREBUILD
+#pragma component(minrebuild, on)
+#endif
 
 #ifdef _AFX_PACKING
 #pragma pack(pop)

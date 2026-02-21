@@ -302,13 +302,18 @@
 #endif
 
 // The following macros are used to enable export/import
-
 // for data
 #ifndef AFX_DATA_EXPORT
 	#define AFX_DATA_EXPORT __declspec(dllexport)
 #endif
 #ifndef AFX_DATA_IMPORT
 	#define AFX_DATA_IMPORT __declspec(dllimport)
+#endif
+
+#if !defined(_MFC_BLD) && defined(_AFXDLL)
+	#define AFX_IMPORT_DATA __declspec(dllimport)
+#else
+	#define AFX_IMPORT_DATA
 #endif
 
 // for classes

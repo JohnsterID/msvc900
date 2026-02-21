@@ -21,11 +21,6 @@
 #error comdef.h header cannot be included under /clr:safe or /clr:pure
 #endif
 
-#pragma push_macro("HeapAlloc")
-#pragma push_macro("HeapFree")
-#undef HeapAlloc
-#undef HeapFree
-
 #include <ole2.h>
 #include <olectl.h>
 
@@ -156,11 +151,7 @@ inline _com_error::~_com_error() throw()
         m_perrinfo->Release();
     }
     if (m_pszMsg != NULL) {
-        HANDLE hHeap = GetProcessHeap();
-        if (hHeap)
-        {
-            HeapFree(hHeap, 0, (LPVOID) m_pszMsg);
-        }
+        LocalFree((HLOCAL)m_pszMsg);
     }
 }
 
@@ -259,18 +250,14 @@ inline const TCHAR * _com_error::ErrorMessage() const throw()
             }
         } 
         else {
-            HANDLE  hHeap = GetProcessHeap();
-            if (hHeap)
-            {
-                m_pszMsg = (LPTSTR)HeapAlloc(hHeap, 0, 32 * sizeof(TCHAR));
-                if (m_pszMsg != NULL) {
-                    WORD wCode = WCode();
-                    if (wCode != 0) {
-                        _COM_PRINTF_S_1(m_pszMsg, 32, TEXT("IDispatch error #%d"), wCode);
-                    } 
-                    else {
-                        _COM_PRINTF_S_1(m_pszMsg, 32, TEXT("Unknown error 0x%0lX"), m_hresult);
-                    }
+            m_pszMsg = (LPTSTR)LocalAlloc(0, 32 * sizeof(TCHAR));
+            if (m_pszMsg != NULL) {
+                WORD wCode = WCode();
+                if (wCode != 0) {
+                    _COM_PRINTF_S_1(m_pszMsg, 32, TEXT("IDispatch error #%d"), wCode);
+                } 
+                else {
+                    _COM_PRINTF_S_1(m_pszMsg, 32, TEXT("Unknown error 0x%0lX"), m_hresult);
                 }
             }
         }
@@ -346,9 +333,6 @@ _COM_SMARTPTR_TYPEDEF(Picture, __uuidof(IDispatch));
 #endif  /* _COM_NO_STANDARD_GUIDS_ */
 
 #pragma warning(pop)
-
-#pragma pop_macro("HeapAlloc")
-#pragma pop_macro("HeapFree")
 
 #endif /* RC_INVOKED */
 #endif  /* _INC_COMDEF */

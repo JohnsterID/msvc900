@@ -200,9 +200,6 @@ private:
 	const _Elem *_Truename;	// name for true, "true" for "C" locale
 	};
 
-typedef numpunct<char> _Npc;
-typedef numpunct<wchar_t> _Npwc;
-
 		// TEMPLATE CLASS numpunct_byname
 template<class _Elem>
 	class numpunct_byname
@@ -1586,6 +1583,6 @@ _STD_END
 #endif /* _XLOCNUM_ */
 
 /*
- * Copyright (c) 1992-2007 by P.J. Plauger.  ALL RIGHTS RESERVED.
+ * Copyright (c) 1992-2008 by P.J. Plauger.  ALL RIGHTS RESERVED.
  * Consult your license regarding permissions and restrictions.
- V5.03:0009 */
+ V5.05:0009 */
